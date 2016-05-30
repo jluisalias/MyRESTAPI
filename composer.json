@@ -1,0 +1,11 @@
+{
+    "name": "restapi/movies",
+    "description": "REST API for movies",
+    "authors": [
+        {
+            "name": "jluisalias",
+            "email": "jluis.alias@gmail.com"
+        }
+    ],
+    "require": {}
+}
