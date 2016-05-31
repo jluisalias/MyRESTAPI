@@ -7,7 +7,7 @@
  * Time: 23:20
  */
 
-namespace Database;
+namespace Config;
 use Containers;
 
 class DatabaseFunctions

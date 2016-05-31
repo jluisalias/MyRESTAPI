@@ -6,12 +6,12 @@
  * Time: 22:48
  */
 
-namespace Code\Controllers;
+namespace Controllers;
 
 
 interface Controller
 {
-    public function isCompatible($method, array $parameters);
+    public function isCompatible($method, $route, array $parameters);
 
     public function executeMethod(array $parameters);
 }

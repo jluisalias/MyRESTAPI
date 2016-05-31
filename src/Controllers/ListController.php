@@ -7,17 +7,18 @@
  */
 
 
-namespace Code\Controllers;
+namespace Controllers;
 
-use \Database;
+use \Config\DatabaseFunctions;
 
 class ListController implements Controller
 {
 
-    public function isCompatible($method, array $parameters)
+    public function isCompatible($method, $route, array $parameters)
     {
         // TODO: Implement isCompatible() method.
-        return $method == 'GET' && !$parameters;
+        echo "Method: ".$method.", Route: ".$route.", Parameters: ".$parameters;
+        return true;
     }
 
     public function executeMethod(array $parameters)

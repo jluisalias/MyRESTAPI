@@ -6,7 +6,7 @@
  * Time: 21:14
  */
 
-namespace Containers;
+namespace Config;
 
 
 class PDOContainer
@@ -19,9 +19,13 @@ class PDOContainer
      * PDOContainer constructor.
      * @param $configuration
      */
-    public function __construct($configuration)
+    public function __construct()
     {
-        $this->configuration = $configuration;
+        $this->configuration = [
+            'database_dsn' => 'mysql:host=localhost;dbname=movies',
+            'database_user' => 'root',
+            'database_pass' => 'primo_01'
+        ];
     }
 
     /**
@@ -31,9 +35,9 @@ class PDOContainer
     {
         if($this->pdo === null){
             $this->pdo = new \PDO(
-                $this->configuration['db_dsn'],
-                $this->configuration['db_user'],
-                $this->configuration['db_pass']
+                $this->configuration['database_dsn'],
+                $this->configuration['database_user'],
+                $this->configuration['database_pass']
             );
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
