@@ -48,4 +48,31 @@ class DatabaseFunctions
         $statement->execute();
         return $statement->fetch();
     }
+
+    /**
+     * Delete a movie, identified by its id
+     * and returns a JSON with the rest of the movies
+     * after the deletion.
+     */
+    public function deleteMovieById($anId)
+    {
+        $pdo = $this->getPdo();
+        $query = 'DELETE FROM movies WHERE id = :idVal';
+
+        $statement = $pdo->prepare($query);
+        $statement->bindParam('idVal', $anId);
+        
+        try{
+            $statement->execute();
+            echo "Record with id = ".$anId." deleted successfully<br>";
+        }catch (\PDOException $exc){
+            echo "Error: ".$exc->getMessage();
+        }
+        //Now, we return the list of movies after delete the movie with id=$anId
+        $query2 = 'SELECT * FROM movies';
+
+        $statement2 = $pdo->prepare($query2);
+        $statement2->execute();
+        return $statement2->fetchAll();
+    }
 }

@@ -6,7 +6,6 @@
  * Time: 23:02
  */
 
-
 namespace Controllers;
 
 use \Config\DatabaseFunctions;
