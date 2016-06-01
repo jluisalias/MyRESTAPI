@@ -12,6 +12,7 @@ class Routing
 {
     protected $method;
     protected $uri;
+    protected $returnData;
 
     public function __construct()
     {
@@ -33,9 +34,14 @@ class Routing
         $parameters = explode('&', $uriSplitted[1]);
 
         if($listController->isCompatible($this->method, $route, $parameters)){
-            $arrayMovies = $listController->executeMethod($parameters);
-            return json_encode($arrayMovies);
+            $this->returnData = $listController->executeMethod($parameters);
+            return $this->printResponse($this->returnData);
         }
+    }
 
+    public function printResponse($data)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }

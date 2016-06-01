@@ -17,8 +17,8 @@ class ListController implements Controller
     public function isCompatible($method, $route, array $parameters)
     {
         // TODO: Implement isCompatible() method.
-        echo "Method: ".$method.", Route: ".$route.", Parameters: ".$parameters;
-        return true;
+        $subroute = str_replace('/web/index.php', '', $route);
+        return $method == 'GET' && $subroute == '/movies' && empty($parameters[0]);
     }
 
     public function executeMethod(array $parameters)
