@@ -10,6 +10,7 @@ use Controllers\ListController;
 use Controllers\DetailController;
 use Controllers\DeleteController;
 use Controllers\CreateController;
+use Controllers\EditController;
 
 class Routing
 {
@@ -34,6 +35,7 @@ class Routing
         $detailController = new DetailController();
         $deleteController = new DeleteController();
         $createController = new CreateController();
+        $editController = new EditController();
         $uriSplitted = explode('?', $this->uri);
 
         $route = str_replace('/web/index.php', '', $uriSplitted[0]);
@@ -52,16 +54,21 @@ class Routing
         }elseif($createController->isCompatible($this->method, $route, $parameters)){
             $this->returnData = $createController->executeMethod($parameters);
             $this->printResponse($this->returnData);
+        }elseif($editController->isCompatible($this->method, $route, $parameters)){
+            $this->returnData = $editController->executeMethod($parameters);
+            $this->printResponse($this->returnData);
+        }else{
+            printResponse('{}');
         }
     }
 
     private function printResponse($data)
     {
         header('Content-Type: application/json');
-        if(!$data){
+        /*if(!$data){
             header("Location: web/index.php",TRUE,204);
             $data = array();
-        }
+        }*/
         echo json_encode($data);
     }
 
