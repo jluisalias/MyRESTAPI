@@ -9,6 +9,7 @@
 use Controllers\ListController;
 use Controllers\DetailController;
 use Controllers\DeleteController;
+use Controllers\CreateController;
 
 class Routing
 {
@@ -32,6 +33,7 @@ class Routing
         $listController = new ListController();
         $detailController = new DetailController();
         $deleteController = new DeleteController();
+        $createController = new CreateController();
         $uriSplitted = explode('?', $this->uri);
 
         $route = str_replace('/web/index.php', '', $uriSplitted[0]);
@@ -46,6 +48,9 @@ class Routing
             $this->printResponse($this->returnData);
         }elseif($deleteController->isCompatible($this->method, $route, $parameters)){
             $this->returnData = $deleteController->executeMethod($parameters);
+            $this->printResponse($this->returnData);
+        }elseif($createController->isCompatible($this->method, $route, $parameters)){
+            $this->returnData = $createController->executeMethod($parameters);
             $this->printResponse($this->returnData);
         }
     }

@@ -61,7 +61,7 @@ class DatabaseFunctions
 
         $statement = $pdo->prepare($query);
         $statement->bindParam('idVal', $anId);
-        
+
         try{
             $statement->execute();
             echo "Record with id = ".$anId." deleted successfully<br>";
@@ -69,6 +69,32 @@ class DatabaseFunctions
             echo "Error: ".$exc->getMessage();
         }
         //Now, we return the list of movies after delete the movie with id=$anId
+        $query2 = 'SELECT * FROM movies';
+
+        $statement2 = $pdo->prepare($query2);
+        $statement2->execute();
+        return $statement2->fetchAll();
+    }
+
+    /**
+     * Create a new movie, the name and description will
+     * be mandatory fields
+     */
+    public function createNewMovie($name, $shortDescription, $imdbRating = ''){
+        $pdo = $this->getPdo();
+        $query = "INSERT INTO movies (name, shortDescription, imdbRating) VALUES (:nameVal, :shortDescriptionVal, :imdbRatingVal)";
+        $statement = $pdo->prepare($query);
+        $statement->bindParam('nameVal', $name);
+        $statement->bindParam('shortDescriptionVal', $shortDescription);
+        $statement->bindParam('imdbRatingVal', $imdbRating);
+        try{
+            $statement->execute();
+            echo "Record created successfully<br>";
+        }catch (\PDOException $exc){
+            echo "Error: ".$exc->getMessage();
+        }
+
+        //Now, we return the list of movies after create the new movie
         $query2 = 'SELECT * FROM movies';
 
         $statement2 = $pdo->prepare($query2);

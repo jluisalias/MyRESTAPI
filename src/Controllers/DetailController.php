@@ -12,10 +12,9 @@ use \Config\DatabaseFunctions;
 
 class DetailController implements Controller
 {
-
     public function isCompatible($method, $route, array $parameters)
     {
-        return $method == 'GET' && $route == '/movies' && array_key_exists('id',$parameters);
+        return $method == 'GET' && $route == '/movies' && array_key_exists('id', $parameters);
     }
 
     public function executeMethod(array $parameters)

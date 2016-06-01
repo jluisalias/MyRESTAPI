@@ -12,13 +12,9 @@ use \Config\DatabaseFunctions;
 
 class DeleteController implements Controller
 {
-
     public function isCompatible($method, $route, array $parameters)
     {
-        header('Content-Type: application/json');
-
-        echo json_encode('{"id":"3"}');
-        return $method == 'DELETE' && $route == '/movies' && array_key_exists('id',$parameters);
+        return $method == 'DELETE' && $route == '/movies' && array_key_exists('id', $parameters);
     }
 
     public function executeMethod(array $parameters)

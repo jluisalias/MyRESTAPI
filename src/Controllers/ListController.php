@@ -12,7 +12,6 @@ use \Config\DatabaseFunctions;
 
 class ListController implements Controller
 {
-
     public function isCompatible($method, $route, array $parameters)
     {
         return $method == 'GET' && $route == '/movies' && empty($parameters);
