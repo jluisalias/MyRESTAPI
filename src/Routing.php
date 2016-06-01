@@ -7,12 +7,13 @@
  */
 
 use Controllers\ListController;
+use Controllers\DetailController;
 
 class Routing
 {
-    protected $method;
-    protected $uri;
-    protected $returnData;
+    private $method;
+    private $uri;
+    private $returnData;
 
     public function __construct()
     {
@@ -28,20 +29,37 @@ class Routing
     public function routeAndExecute()
     {
         $listController = new ListController();
+        $detailController = new DetailController();
         $uriSplitted = explode('?', $this->uri);
 
         $route = str_replace('/web/index.php', '', $uriSplitted[0]);
-        $parameters = explode('&', $uriSplitted[1]);
+        $preParameters = explode('&', $uriSplitted[1]);
+        $parameters = $this->fillParameters($preParameters);
 
         if($listController->isCompatible($this->method, $route, $parameters)){
             $this->returnData = $listController->executeMethod($parameters);
-            return $this->printResponse($this->returnData);
+            $this->printResponse($this->returnData);
+        }elseif($detailController->isCompatible($this->method, $route, $parameters)){
+            $this->returnData = $detailController->executeMethod($parameters);
+            $this->printResponse($this->returnData);
         }
     }
 
-    public function printResponse($data)
+    private function printResponse($data)
     {
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    private function fillParameters($preProcessedParameters)
+    {
+        $parametersArray = array();
+        foreach ($preProcessedParameters as $preParameter){
+            $preParameterSplitted = explode('=', $preParameter);
+            if($preParameterSplitted[0] != ""){
+                $parametersArray[$preParameterSplitted[0]] = $preParameterSplitted[1];
+            }
+        }
+        return $parametersArray;
     }
 }

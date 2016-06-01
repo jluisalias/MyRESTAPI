@@ -8,16 +8,26 @@
  */
 
 namespace Config;
-use Containers;
 
 class DatabaseFunctions
 {
+    private $pdoContainer;
+    /**
+     * Gets the PDO Object
+     */
+    private function getPdo()
+    {
+        if($this->pdoContainer === null){
+            $this->pdoContainer = new PDOContainer();
+        }
+        return $this->pdoContainer->getPDO();
+    }
     /**
      * List all the movies in the database
      */
-    public function listMovies(){
-        $pdoContainer = new PDOContainer();
-        $pdo = $pdoContainer->getPDO();
+    public function listMovies()
+    {
+        $pdo = $this->getPdo();
         $query = 'SELECT * FROM movies';
 
         $statement = $pdo->prepare($query);
@@ -25,4 +35,17 @@ class DatabaseFunctions
         return $statement->fetchAll();
     }
 
+    /**
+     * Show a movie, identified by its id
+     */
+    public function getMovieById($anId)
+    {
+        $pdo = $this->getPdo();
+        $query = 'SELECT * FROM movies WHERE id = :idVal';
+
+        $statement = $pdo->prepare($query);
+        $statement->bindParam('idVal', $anId);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }
