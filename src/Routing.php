@@ -30,7 +30,7 @@ class Routing
         $listController = new ListController();
         $uriSplitted = explode('?', $this->uri);
 
-        $route = $uriSplitted[0];
+        $route = str_replace('/web/index.php', '', $uriSplitted[0]);
         $parameters = explode('&', $uriSplitted[1]);
 
         if($listController->isCompatible($this->method, $route, $parameters)){
