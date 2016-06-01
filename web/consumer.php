@@ -16,5 +16,6 @@ echo '<!DOCTYPE html>
   </head>
   <body>
     <!-- page content -->
+    <h1>This is the webservice consumer!!</h1>
   </body>
 </html>';

@@ -1,3 +1,9 @@
 body {
     background-color: #58ACFA;
 }
+
+h1{
+    color: #0B3861;
+    font-size: 5em;
+    font-family: "Verdana", sans-serif;
+}
