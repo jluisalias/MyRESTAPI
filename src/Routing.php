@@ -65,10 +65,10 @@ class Routing
     private function printResponse($data)
     {
         header('Content-Type: application/json');
-        /*if(!$data){
+        if(!$data){
             header("Location: web/index.php",TRUE,204);
             $data = array();
-        }*/
+        }
         echo json_encode($data);
     }
 

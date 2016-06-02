@@ -16,6 +16,9 @@ echo '<!DOCTYPE html>
   </head>
   <body>
     <!-- page content -->
-    <h1>This is the webservice consumer!!</h1>
+    <div id="content">
+        <h1>This is the webservice consumer!!</h1>
+        <button type="button" onclick="goToIndex()">Click Me!</button>
+    </div>
   </body>
 </html>';
